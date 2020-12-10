@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{RXBc:function(e,t,n){"use strict";n.r(t);var a=n("q1tI"),o={color:"#232129",padding:"96px",fontFamily:"-apple-system, Roboto, sans-serif, serif"},l={marginTop:0,marginBottom:64,maxWidth:320};t.default=function(){return a.createElement("main",{style:o},a.createElement("title",null,"Home Page"),a.createElement("h1",{style:l},"Congratulations"),a.createElement("h2",null,"Robert Żuk"))}}}]);
+//# sourceMappingURL=component---src-pages-index-js-708146841a92db69eff5.js.map
