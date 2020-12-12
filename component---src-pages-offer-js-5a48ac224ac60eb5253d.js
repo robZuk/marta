@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{mGpG:function(e,n,t){"use strict";t.r(n);var a=t("q1tI"),r=t.n(a),u=t("7dgR");n.default=function(){return r.a.createElement(u.a,null,r.a.createElement("h1",null,"Oferta"))}}}]);
+//# sourceMappingURL=component---src-pages-offer-js-5a48ac224ac60eb5253d.js.map

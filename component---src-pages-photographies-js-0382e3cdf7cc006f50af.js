@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{HD9q:function(e,n,t){"use strict";t.r(n);var a=t("q1tI"),o=t.n(a),r=t("7dgR");n.default=function(){return o.a.createElement(r.a,null,o.a.createElement("h1",null,"Fotografie"))}}}]);
+//# sourceMappingURL=component---src-pages-photographies-js-0382e3cdf7cc006f50af.js.map
