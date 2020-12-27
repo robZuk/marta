@@ -3,6 +3,8 @@ import Navigation from "../Components/Navigation";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import { Helmet } from "react-helmet";
+import { theme } from "../theme/mainTheme";
+import { ThemeProvider } from "styled-components";
 import PropTypes from "prop-types";
 
 const StyledWrapper = styled.div`
@@ -14,7 +16,7 @@ const StyledWrapper = styled.div`
 
 const MainTemplate = ({ children }) => {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Marta Chojnowska</title>
@@ -31,7 +33,7 @@ const MainTemplate = ({ children }) => {
       <GlobalStyle />
       <Navigation />
       <StyledWrapper>{children}</StyledWrapper>
-    </>
+    </ThemeProvider>
   );
 };
 

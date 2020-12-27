@@ -3,10 +3,6 @@ import { graphql, useStaticQuery } from "gatsby";
 import BackgroundImage from "gatsby-background-image";
 import styled from "styled-components";
 import MainTemplate from "../templates/MainTemplate";
-import img6 from "../../static/images/img6.jpg";
-import img2 from "../../static/images/img2.jpg";
-import img3 from "../../static/images/img3.jpg";
-import img7 from "../../static/images/img7.jpg";
 
 const StyledSliderContainer = styled.div`
   position: relative;
@@ -63,28 +59,6 @@ const StyledRightSlide = styled.div`
   transform: ${({ elHeight, activeSlideIndex }) =>
     `translateY(-${elHeight * activeSlideIndex}px)`};
   transition: transform 0.5s ease-in-out;
-
-  & > div {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    height: 100%;
-    width: 100%;
-    :nth-child(1) {
-      background-image: url(${img2});
-      /* background-color: gray;
-        background-blend-mode: soft-light; */
-    }
-    :nth-child(2) {
-      background-image: url(${img6});
-    }
-    :nth-child(3) {
-      background-image: url(${img7});
-    }
-    :nth-child(4) {
-      background-image: url(${img3});
-    }
-  }
 `;
 
 const StyledActionsButton = styled.div`
@@ -121,7 +95,15 @@ const StyledButtonUp = styled(StyledButton)`
   border-bottom-right-radius: 5px;
 `;
 
-const Main = () => {
+const StyledBackgroundImage = styled(BackgroundImage)`
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100%;
+  width: 100%;
+`;
+
+const Main = (props) => {
   const [elHeight, setElHeight] = useState(0);
   const [elLength, setElLength] = useState(0);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -148,6 +130,46 @@ const Main = () => {
       }
     }
   };
+
+  const data = useStaticQuery(
+    graphql`
+      query {
+        img1: file(relativePath: { eq: "img2.jpg" }) {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1920) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+        img2: file(relativePath: { eq: "img3.jpg" }) {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1920) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+        img3: file(relativePath: { eq: "img7.jpg" }) {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1920) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+        img4: file(relativePath: { eq: "img6.jpg" }) {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1920) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+      }
+    `
+  );
+
+  const img1 = data.img1.childImageSharp.fluid;
+  const img2 = data.img2.childImageSharp.fluid;
+  const img3 = data.img3.childImageSharp.fluid;
+  const img4 = data.img4.childImageSharp.fluid;
 
   return (
     <MainTemplate>
@@ -181,10 +203,10 @@ const Main = () => {
           elHeight={elHeight}
           activeSlideIndex={activeSlideIndex}
         >
-          <div />
-          <div />
-          <div />
-          <div />
+          <StyledBackgroundImage fluid={img1}></StyledBackgroundImage>
+          <StyledBackgroundImage fluid={img2}></StyledBackgroundImage>
+          <StyledBackgroundImage fluid={img3}></StyledBackgroundImage>
+          <StyledBackgroundImage fluid={img4}></StyledBackgroundImage>
         </StyledRightSlide>
 
         <StyledActionsButton>

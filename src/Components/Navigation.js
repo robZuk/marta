@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const StyledNav = styled.nav`
   height: 10vh;
-  background-color: #222;
+  background-color: ${({ theme }) => theme.grey800};
   top: 0;
   left: 0;
   right: 0;
@@ -17,7 +17,6 @@ const StyledContainer = styled.div`
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-
   justify-content: space-around;
   align-items: center;
   /* padding: 20px 0; */

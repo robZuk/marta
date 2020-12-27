@@ -1,9 +1,10 @@
 import React from "react";
 import MainTemplate from "../templates/MainTemplate";
 import Button from "../Components/Button";
-import Header from "../Components/Header";
+import Title from "../Components/Title";
 import Paragraph from "../Components/Paragraph";
-import marta from "../../static/images/marta.jpeg";
+import { graphql } from "gatsby";
+import Img from "gatsby-image";
 import { Link } from "gatsby";
 import styled from "styled-components";
 
@@ -22,8 +23,7 @@ const StyledInnerContainer = styled.div`
   box-shadow: inset 0 0 20px gray;
 `;
 
-const StyledLeftSide = styled.div`
-  background-image: url(${marta});
+const StyledLeftSide = styled(Img)`
   background-repeat: no-repeat;
   background-size: contain;
   background-position: left center;
@@ -41,14 +41,16 @@ const StyledRightSide = styled.div`
   box-shadow: -10px 10px -10px gray;
 `;
 
-const AboutMe = () => {
+const AboutMe = ({ data }) => {
+  const img = data.file.childImageSharp.fluid;
+
   return (
     <MainTemplate>
       <StyledContainer>
         <StyledInnerContainer>
-          <StyledLeftSide />
+          <StyledLeftSide fluid={img}></StyledLeftSide>
           <StyledRightSide>
-            <Header>o mnie</Header>
+            <Title>o mnie</Title>
             <Paragraph>
               Lorem ipsum dolor sit amet, in usu hinc albucius corrumpit, duo
               feugiat accusamus in. Sed ne impetus aperiri definitionem, quo
@@ -82,3 +84,16 @@ const AboutMe = () => {
 };
 
 export default AboutMe;
+
+export const query = graphql`
+  query {
+    file(relativePath: { eq: "marta.jpeg" }) {
+      childImageSharp {
+        fluid(maxWidth: 500, quality: 100) {
+          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluidLimitPresentationSize
+        }
+      }
+    }
+  }
+`;

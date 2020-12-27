@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import MainTemplate from "../templates/MainTemplate";
-import Header from "../Components/Header";
+import Title from "../Components/Title";
 import styled from "styled-components";
 import img1 from "../../static/galery/img1.jpeg";
 import img2 from "../../static/galery/img2.jpeg";
@@ -19,7 +19,7 @@ const StyledContainer = styled.div`
   align-items: start;
 `;
 
-const StyledHeader = styled(Header)`
+const StyledTitle = styled(Title)`
   text-align: center;
   margin-top: 5%;
   font-size: 4rem;
@@ -80,7 +80,6 @@ const Galeries = () => {
     setElWidth(el.current.clientWidth);
   }, [elWidth]);
 
-  console.log(elWidth);
   useEffect(() => {
     setElLength(el.current.children.length);
   }, [elLength]);
@@ -102,7 +101,7 @@ const Galeries = () => {
   return (
     <MainTemplate>
       <StyledContainer>
-        <StyledHeader>galeria</StyledHeader>
+        <StyledTitle>galeria</StyledTitle>
         <StyledCarousel>
           <StyledImageContainer ref={el}>
             <StyledImg
