@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import MainTemplate from "../templates/MainTemplate";
 import Title from "../Components/Title";
 import styled from "styled-components";
-import img1 from "../../static/galery/img1.jpeg";
-import img2 from "../../static/galery/img2.jpeg";
-import img3 from "../../static/galery/img3.jpeg";
-import img4 from "../../static/galery/img4.jpeg";
-import img5 from "../../static/galery/img5.jpeg";
-import img6 from "../../static/galery/img6.jpeg";
-import img7 from "../../static/galery/img7.jpeg";
+// import img1 from "../../static/galery/img1.jpeg";
+// import img2 from "../../static/galery/img2.jpeg";
+// import img3 from "../../static/galery/img3.jpeg";
+// import img4 from "../../static/galery/img4.jpeg";
+// import img5 from "../../static/galery/img5.jpeg";
+// import img6 from "../../static/galery/img6.jpeg";
+// import img7 from "../../static/galery/img7.jpeg";
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -104,7 +104,7 @@ const Galeries = () => {
         <StyledTitle>galeria</StyledTitle>
         <StyledCarousel>
           <StyledImageContainer ref={el}>
-            <StyledImg
+            {/* <StyledImg
               elWidth={elWidth}
               activeSlideIndex={activeSlideIndex}
               src={img1}
@@ -145,7 +145,7 @@ const Galeries = () => {
               activeSlideIndex={activeSlideIndex}
               src={img7}
               alt="seven"
-            />
+            /> */}
           </StyledImageContainer>
           <StyledButtonsContainer>
             <StyledButton
