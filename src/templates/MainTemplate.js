@@ -1,5 +1,6 @@
 import React from "react";
-import Navigation from "../Components/Navigation";
+//import Navigation from "../Components/Navigation";
+import HamburgerMenu from "../Components/HamburgerMenu";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import { Helmet } from "react-helmet";
@@ -9,8 +10,8 @@ import PropTypes from "prop-types";
 
 const StyledWrapper = styled.div`
   position: absolute;
-  top: 10%;
-  height: 90vh;
+
+  height: 100vh;
   width: 100vw;
 `;
 
@@ -31,7 +32,8 @@ const MainTemplate = ({ children }) => {
         />
       </Helmet>
       <GlobalStyle />
-      <Navigation />
+      <HamburgerMenu />
+      {/* <Navigation /> */}
       <StyledWrapper>{children}</StyledWrapper>
     </ThemeProvider>
   );

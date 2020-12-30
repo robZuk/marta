@@ -3,12 +3,14 @@ import { Link } from "gatsby";
 import styled from "styled-components";
 
 const StyledNav = styled.nav`
+  position: fixed;
   height: 10vh;
-  background-color: ${({ theme }) => theme.grey800};
+  background-color: inherit;
   top: 0;
   left: 0;
   right: 0;
   transition: all 0.3s ease-in-out;
+  z-index: 1;
 `;
 
 const StyledContainer = styled.div`
@@ -39,7 +41,7 @@ const StyledLink = styled(Link)`
   justify-content: space-around;
   /* margin: 0 1px; */
   text-align: center;
-  color: #c0c0c0;
+  color: white;
   /* font-weight: bold; */
   /* color: ${({ current }) => (current ? "#c0392b" : "#fff")};
     font-weight: ${({ current }) => (current ? "bold" : "normal")}; */

@@ -16,12 +16,15 @@ const StyledLeftSlide = styled.div`
   height: 100%;
   width: 35%;
   position: absolute;
-  top: ${({ elLength }) => `-${(elLength - 1) * 90}vh`};
+  top: ${({ elLength }) => `-${(elLength - 1) * 100}vh`};
   left: 0;
   transform: ${({ elHeight, activeSlideIndex }) =>
     `translateY(${elHeight * activeSlideIndex}px)`};
   transition: transform 0.5s ease-in-out;
-
+  /* @media ${({ theme }) => theme.orientation.portrait} {
+    height: 35%;
+    width: 100%;
+  } */
   & > div {
     height: 100%;
     width: 100%;
@@ -42,11 +45,27 @@ const StyledLeftSlide = styled.div`
     :nth-child(4) {
       background-color: #cec1b9;
     }
-  }
-  & h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-    margin-top: -30px;
+
+    & h1 {
+      text-align: center;
+      font-size: ${({ theme }) => theme.fontSize.s};
+
+      margin: -30px 40px 10px 40px;
+      @media ${({ theme }) => theme.breakpoints.tablet} {
+      }
+      @media ${({ theme }) => theme.breakpoints.laptop} {
+        font-size: ${({ theme }) => theme.fontSize.l};
+      }
+    }
+    & p {
+      text-align: center;
+      margin: 0 30px;
+      font-size: ${({ theme }) => theme.fontSize.xs};
+
+      @media ${({ theme }) => theme.breakpoints.tablet} {
+        font-size: ${({ theme }) => theme.fontSize.s};
+      }
+    }
   }
 `;
 
@@ -59,13 +78,17 @@ const StyledRightSlide = styled.div`
   transform: ${({ elHeight, activeSlideIndex }) =>
     `translateY(-${elHeight * activeSlideIndex}px)`};
   transition: transform 0.5s ease-in-out;
+  /* @media ${({ theme }) => theme.orientation.portrait} {
+    height: 100%;
+    width: 100%;
+  } */
 `;
 
 const StyledActionsButton = styled.div`
   position: absolute;
   left: 35%;
   top: 50%;
-  z-index: 100;
+  z-index: 0;
   transform: translateX(-50%);
 `;
 
@@ -74,8 +97,15 @@ const StyledButton = styled.button`
   border: none;
   color: #aaa;
   cursor: pointer;
-  font-size: 16px;
-  padding: 15px;
+  font-size: ${({ theme }) => theme.fontSize.xxs};
+  padding: 10px;
+  @media ${({ theme }) => theme.breakpoints.laptopM} {
+    font-size: ${({ theme }) => theme.fontSize.xs};
+    padding: 14px;
+  }
+  @media ${({ theme }) => theme.breakpoints.laptopL} {
+    font-size: ${({ theme }) => theme.fontSize.s};
+  }
   :hover {
     color: #222;
   }
