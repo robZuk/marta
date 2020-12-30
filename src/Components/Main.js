@@ -149,11 +149,13 @@ const Main = (props) => {
 
   const changeSlide = (direction) => {
     if (direction === "up") {
+      setElHeight(el.current.clientHeight);
       setActiveSlideIndex(activeSlideIndex + 1);
       if (activeSlideIndex >= elLength - 1) {
         setActiveSlideIndex(0);
       }
     } else if (direction === "down") {
+      setElHeight(el.current.clientHeight);
       setActiveSlideIndex(activeSlideIndex - 1);
       if (activeSlideIndex <= 0) {
         setActiveSlideIndex(elLength - 1);
