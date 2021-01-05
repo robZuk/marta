@@ -1,72 +1,87 @@
 import React, { useState, useEffect, useRef } from "react";
 import MainTemplate from "../templates/MainTemplate";
-import Title from "../Components/Title";
 import styled from "styled-components";
-// import img1 from "../../static/galery/img1.jpeg";
-// import img2 from "../../static/galery/img2.jpeg";
-// import img3 from "../../static/galery/img3.jpeg";
-// import img4 from "../../static/galery/img4.jpeg";
-// import img5 from "../../static/galery/img5.jpeg";
-// import img6 from "../../static/galery/img6.jpeg";
-// import img7 from "../../static/galery/img7.jpeg";
+import Img from "gatsby-image";
+import { Link, graphql, useStaticQuery } from "gatsby";
 
 const StyledContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: grid;
   grid-template-rows: 1fr 6fr;
   justify-content: center;
   align-items: start;
-`;
-
-const StyledTitle = styled(Title)`
-  text-align: center;
-  margin-top: 5%;
-  font-size: 4rem;
+  background-color: ${({ theme }) => theme.grey700};
+  overflow: hidden;
 `;
 
 const StyledCarousel = styled.div`
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  height: 840px;
-  width: 800px;
+  margin-top: 15%;
+  position: relative;
   overflow: hidden;
+  @media ${({ theme }) => theme.orientation.portarait} {
+    height: 80vh;
+    width: 100vw;
+  }
+  @media ${({ theme }) => theme.orientation.landscape} {
+    height: 85vh;
+    width: 80vh;
+  }
 `;
 
 const StyledImageContainer = styled.div`
   display: flex;
   transform: translateX(0);
-  transition: transform 0.5s ease-in-out;
 `;
 
-const StyledImg = styled.img`
+const StyledImg = styled(Img)`
   display: block;
-  height: 100%;
+  width: 100%;
   min-width: 100%;
-  height: 800px;
+  margin: auto;
+  height: 85vh;
   object-fit: contain;
+  transition: transform 0.5s ease-in-out;
   transform: ${({ elWidth, activeSlideIndex }) =>
     `translateX(-${elWidth * activeSlideIndex}px)`};
 `;
 
 const StyledButtonsContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
   display: flex;
   justify-content: space-between;
+  transform: translate(-50%, -50%);
 `;
 
 const StyledButton = styled.button`
-  height: 40px;
-  font-size: 1.6rem;
-  background-color: indianred;
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  background-color: rgba(0, 0, 0, 0.3);
   color: #fff;
   border: none;
-  padding: 0.5rem;
+  padding: 0.7rem;
   cursor: pointer;
-  width: 49.5%;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+
+  @media ${({ theme }) => theme.breakpoints.laptop} {
+    font-size: ${({ theme }) => theme.fontSize.m};
+  }
   :hover {
-    opacity: 0.9;
+    opacity: 1;
   }
   :focus {
     outline: none;
+  }
+  :nth-child(1) {
+    margin-left: 0;
+    width: auto;
+  }
+  :nth-child(2) {
+    margin-right: 0;
+    width: auto;
   }
 `;
 
@@ -86,11 +101,13 @@ const Galeries = () => {
 
   const changeImage = (direction) => {
     if (direction === "next") {
+      setElWidth(el.current.clientWidth);
       setActiveSlideIndex(activeSlideIndex + 1);
       if (activeSlideIndex >= elLength - 1) {
         setActiveSlideIndex(0);
       }
     } else if (direction === "prev") {
+      setElWidth(el.current.clientWidth);
       setActiveSlideIndex(activeSlideIndex - 1);
       if (activeSlideIndex <= 0) {
         setActiveSlideIndex(elLength - 1);
@@ -98,54 +115,76 @@ const Galeries = () => {
     }
   };
 
+  const data = useStaticQuery(graphql`
+    query {
+      img1: file(relativePath: { eq: "galery/img5.jpeg" }) {
+        childImageSharp {
+          fluid(maxWidth: 562, quality: 90) {
+            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluidLimitPresentationSize
+          }
+        }
+      }
+      img2: file(relativePath: { eq: "galery/img2.jpeg" }) {
+        childImageSharp {
+          fluid(maxWidth: 936, quality: 90) {
+            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluidLimitPresentationSize
+          }
+        }
+      }
+      img3: file(relativePath: { eq: "galery/img3.jpeg" }) {
+        childImageSharp {
+          fluid(maxWidth: 936, quality: 90) {
+            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluidLimitPresentationSize
+          }
+        }
+      }
+      img4: file(relativePath: { eq: "galery/img4.jpeg" }) {
+        childImageSharp {
+          fluid(maxWidth: 936, quality: 90) {
+            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluidLimitPresentationSize
+          }
+        }
+      }
+    }
+  `);
+  const img1 = data.img1.childImageSharp.fluid;
+  const img2 = data.img2.childImageSharp.fluid;
+  const img3 = data.img3.childImageSharp.fluid;
+  const img4 = data.img4.childImageSharp.fluid;
+
   return (
     <MainTemplate>
       <StyledContainer>
-        <StyledTitle>galeria</StyledTitle>
         <StyledCarousel>
           <StyledImageContainer ref={el}>
-            {/* <StyledImg
+            <StyledImg
               elWidth={elWidth}
               activeSlideIndex={activeSlideIndex}
-              src={img1}
+              fluid={img1}
               alt="first"
             />
             <StyledImg
               elWidth={elWidth}
               activeSlideIndex={activeSlideIndex}
-              src={img2}
+              fluid={img2}
               alt="second"
             />
             <StyledImg
               elWidth={elWidth}
               activeSlideIndex={activeSlideIndex}
-              src={img3}
+              fluid={img3}
               alt="third"
             />
             <StyledImg
               elWidth={elWidth}
               activeSlideIndex={activeSlideIndex}
-              src={img4}
+              fluid={img4}
               alt="fourth"
             />
-            <StyledImg
-              elWidth={elWidth}
-              activeSlideIndex={activeSlideIndex}
-              src={img5}
-              alt="fifth"
-            />
-            <StyledImg
-              elWidth={elWidth}
-              activeSlideIndex={activeSlideIndex}
-              src={img6}
-              alt="six"
-            />
-            <StyledImg
-              elWidth={elWidth}
-              activeSlideIndex={activeSlideIndex}
-              src={img7}
-              alt="seven"
-            /> */}
           </StyledImageContainer>
           <StyledButtonsContainer>
             <StyledButton
@@ -153,14 +192,14 @@ const Galeries = () => {
                 changeImage("prev");
               }}
             >
-              Prev
+              <i className="fas fa-chevron-left"></i>
             </StyledButton>
             <StyledButton
               onClick={() => {
                 changeImage("next");
               }}
             >
-              Next
+              <i className="fas fa-chevron-right"></i>
             </StyledButton>
           </StyledButtonsContainer>
         </StyledCarousel>

@@ -1,6 +1,6 @@
 import React from "react";
-//import Navigation from "../Components/Navigation";
-import HamburgerMenu from "../Components/HamburgerMenu";
+import Navigation from "../Components/Navigation";
+// import HamburgerMenu from "../Components/HamburgerMenu";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import { Helmet } from "react-helmet";
@@ -32,8 +32,8 @@ const MainTemplate = ({ children }) => {
         />
       </Helmet>
       <GlobalStyle />
-      <HamburgerMenu />
-      {/* <Navigation /> */}
+      {/* <HamburgerMenu /> */}
+      <Navigation />
       <StyledWrapper>{children}</StyledWrapper>
     </ThemeProvider>
   );

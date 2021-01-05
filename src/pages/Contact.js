@@ -4,11 +4,32 @@ import MainTemplate from "../templates/MainTemplate";
 //import { Link } from "gatsby";
 import { graphql } from "gatsby";
 import Img from "gatsby-image";
+import styled from "styled-components";
+
+const Form = styled.form`
+  margin-top: 20%;
+`;
 
 const Contact = ({ data }) => {
   return (
     <MainTemplate>
-      <Img fixed={data.file.childImageSharp.fixed} />
+      <Form
+        name="contact"
+        action="mailto:robert.aleks.zuk@gmail.com"
+        method="post"
+        enctype="text/plain"
+        data-netlify=" true"
+        data-netlify-honeypot="bot-field"
+      >
+        Name:
+        <input type="text" name="name" placeholder="Twoje Imię"></input>
+        E-mail
+        <input type="text" name="mail"></input>
+        Comment:
+        <input type="text" name="comment" size="50"></input>
+        <input type="submit" value="Send"></input>
+        <input type="reset" value="Reset"></input>
+      </Form>
     </MainTemplate>
   );
 };

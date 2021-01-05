@@ -169,14 +169,11 @@ const HamburgerMenu = () => {
         <div>
           <div>
             <ul>
+              {/* <StyledLink to="/">start</StyledLink> */}
               <StyledLink to="/AboutMe/">o mnie</StyledLink>
-
               <StyledLink to="/Activities/">zajęcia</StyledLink>
-
               <StyledLink to="/Offer/">oferta</StyledLink>
-
               <StyledLink to="/Galeries/">galeria</StyledLink>
-
               <StyledLink to="/Contact/">kontakt</StyledLink>
             </ul>
           </div>

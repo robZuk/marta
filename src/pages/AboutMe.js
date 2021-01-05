@@ -9,36 +9,66 @@ import { Link } from "gatsby";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: #222;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #cec1b9;
+`;
+
+const StyledTitle = styled(Title)`
+  /* display: flex;
+  justify-content: end;
+  margin-top: 3%;
+  margin-left: 50%; */
+  /* position: absolute;
+  top: 2%;
+  right: 3%;
+  color: black; */
 `;
 const StyledInnerContainer = styled.div`
-  width: 80%;
-  height: 100%;
+  position: absolute;
+  //top: 10%;
+  /* width: 80%; */
+  width: 100%;
+  height: 100vh;
   display: grid;
-  margin: 0 10%;
-  grid-template-columns: 1fr 3fr;
+  overflow: hidden;
+
+  /* margin: 0 10%; */
+  grid-template-columns: 50% 50%;
+  //grid-template-rows: 1fr 1fr;
+
   background-color: white;
   box-shadow: inset 0 0 20px gray;
 `;
 
 const StyledLeftSide = styled(Img)`
   background-repeat: no-repeat;
-  background-size: contain;
-  background-position: left center;
+  background-size: cover;
+  background-position: left bottom;
   width: 100%;
   height: 100%;
 `;
 const StyledRightSide = styled.div`
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: grid;
   grid-template-rows: 1fr 3fr 1fr;
   align-items: center;
-  justify-items: start;
-  padding-right: 5%;
+  justify-items: center;
+  /* padding-right: 5%; */
   box-shadow: -10px 10px -10px gray;
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  /* margin-top: 5%; */
+`;
+
+const StyledButton = styled(Button)`
+  position: absolute;
+  bottom: 3%;
+  right: 8%;
 `;
 
 const AboutMe = ({ data }) => {
@@ -50,32 +80,17 @@ const AboutMe = ({ data }) => {
         <StyledInnerContainer>
           <StyledLeftSide fluid={img}></StyledLeftSide>
           <StyledRightSide>
-            <Title>o mnie</Title>
-            <Paragraph>
+            <StyledTitle>o mnie</StyledTitle>
+            <StyledParagraph>
               Lorem ipsum dolor sit amet, in usu hinc albucius corrumpit, duo
               feugiat accusamus in. Sed ne impetus aperiri definitionem, quo
               noster nostro sensibus ne. Convenire tincidunt his te, cum ex
               iracundia cotidieque. Vel ei integre saperet sensibus, sit ne
-              dolore reprimique. Alii virtute vis ad. Consul tacimates no vel.
-              Molestie fabellas tractatos est cu, ei minim intellegam quaerendum
-              ius. At honestatis temporibus his, te tale aliquam vel. Id tollit
-              postea usu. Cu est invidunt consequuntur. Alii oratio audire eum
-              eu, ei pri nonumes copiosae imperdiet. No choro invenire splendide
-              has, sit ne inimicus maiestatis. Vix ut corpora electram, id
-              putant inimicus usu. Autem praesent voluptatum sit ut, at vix
-              consul fuisset petentium. Sea eu habeo propriae, viris laoreet
-              accusata vel ne. Ea per dicam utamur, eos modo volutpat cu. Sea et
-              cibo quas partem, mea ad doctus rationibus. At brute sanctus his,
-              latine aliquam ea per. Sit no elit euismod, et eripuit scriptorem
-              eam. Eirmod hendrerit ei est, justo movet mandamus ut vix. Nostro
-              discere prodesset cu quo. Nulla blandit has in, ea dicam munere
-              tibique ius. Ex sale delicatissimi est. Id vel dolor legimus
-              oportere, dico aeterno philosophia cu vix. Duis dicunt at usu, mea
-              modo fugit ut.
-            </Paragraph>
-            <Button as={Link} to="/">
-              <i className="fas fa-backward"></i> Powrót
-            </Button>
+              dolore reprimique.
+            </StyledParagraph>
+            <StyledButton as={Link} to="/">
+              <i className="fas fa-backward"></i>
+            </StyledButton>
           </StyledRightSide>
         </StyledInnerContainer>
       </StyledContainer>
@@ -89,7 +104,7 @@ export const query = graphql`
   query {
     file(relativePath: { eq: "marta.jpeg" }) {
       childImageSharp {
-        fluid(maxWidth: 500, quality: 100) {
+        fluid(maxWidth: 500, quality: 90) {
           ...GatsbyImageSharpFluid
           ...GatsbyImageSharpFluidLimitPresentationSize
         }

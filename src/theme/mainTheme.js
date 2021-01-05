@@ -4,6 +4,7 @@ export const theme = {
   grey200: "hsl(0, 0%, 90%)",
   grey300: "hsl(0, 0%, 70%)",
   grey400: "hsl(0, 0%, 50%)",
+  grey700: "hsl(0, 0%, 20%)",
   grey800: "hsl(0, 0%, 13%)",
   black: "hsl(0, 0%, 0%)",
   indianRed: "hsl(354, 34%, 44%);",
@@ -11,7 +12,7 @@ export const theme = {
   fontSize: {
     xxs: "0.7rem",
     xs: "1rem",
-    s: "1.4rem",
+    s: "1.6rem",
     m: "2.0rem",
     l: "2.4rem",
     xl: "4rem",

@@ -7,7 +7,7 @@ import MainTemplate from "../templates/MainTemplate";
 const StyledSliderContainer = styled.div`
   position: relative;
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   letter-spacing: 3px;
 `;
@@ -21,10 +21,16 @@ const StyledLeftSlide = styled.div`
   transform: ${({ elHeight, activeSlideIndex }) =>
     `translateY(${elHeight * activeSlideIndex}px)`};
   transition: transform 0.5s ease-in-out;
-  /* @media ${({ theme }) => theme.orientation.portrait} {
+
+  @media ${({ theme }) => theme.orientation.portrait} {
+    transform: ${({ elWidth, activeSlideIndex, elLength }) =>
+      `translateX(${(elWidth / elLength) * activeSlideIndex}px)`};
+    display: flex;
+    top: 0;
+    left: ${({ elLength }) => `-${(elLength - 1) * 100}vw`};
     height: 35%;
-    width: 100%;
-  } */
+    width: ${({ elLength }) => `${elLength * 100}%`};
+  }
   & > div {
     height: 100%;
     width: 100%;
@@ -33,6 +39,10 @@ const StyledLeftSlide = styled.div`
     align-items: center;
     justify-content: center;
     color: #fff;
+    @media ${({ theme }) => theme.orientation.portrait} {
+      height: 100%;
+      width: 100%;
+    }
     :nth-child(1) {
       background-color: #ffb866;
     }
@@ -78,16 +88,30 @@ const StyledRightSlide = styled.div`
   transform: ${({ elHeight, activeSlideIndex }) =>
     `translateY(-${elHeight * activeSlideIndex}px)`};
   transition: transform 0.5s ease-in-out;
-  /* @media ${({ theme }) => theme.orientation.portrait} {
-    height: 100%;
-    width: 100%;
-  } */
+  @media ${({ theme }) => theme.orientation.portrait} {
+    transform: ${({ elWidth, activeSlideIndex, elLength }) =>
+      `translateX(${-(elWidth / elLength) * activeSlideIndex}px)`};
+    display: flex;
+    top: 35%;
+    left: 0;
+    height: 65%;
+    width: ${({ elLength }) => `${elLength * 100}%`};
+  }
 `;
 
-const StyledActionsButton = styled.div`
+const StyledActionsButtonLandscape = styled.div`
   position: absolute;
   left: 35%;
   top: 50%;
+  z-index: 0;
+
+  transform: translateX(-50%);
+`;
+
+const StyledActionsButtonPortrait = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 35%;
   z-index: 0;
   transform: translateX(-50%);
 `;
@@ -117,12 +141,36 @@ const StyledButton = styled.button`
 const StyledButtonDown = styled(StyledButton)`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  @media ${({ theme }) => theme.orientation.portrait} {
+    display: none;
+  }
 `;
 
 const StyledButtonUp = styled(StyledButton)`
   transform: translateY(-100%);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  @media ${({ theme }) => theme.orientation.portrait} {
+    display: none;
+  }
+`;
+
+const StyledButtonLeft = styled(StyledButton)`
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+
+  @media ${({ theme }) => theme.orientation.landscape} {
+    display: none;
+  }
+`;
+
+const StyledButtonRight = styled(StyledButton)`
+  transform: translateY(-100%);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  @media ${({ theme }) => theme.orientation.landscape} {
+    display: none;
+  }
 `;
 
 const StyledBackgroundImage = styled(BackgroundImage)`
@@ -133,8 +181,9 @@ const StyledBackgroundImage = styled(BackgroundImage)`
   width: 100%;
 `;
 
-const Main = (props) => {
+const Main = () => {
   const [elHeight, setElHeight] = useState(0);
+  const [elWidth, setElWidth] = useState(0);
   const [elLength, setElLength] = useState(0);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const el = useRef();
@@ -147,7 +196,11 @@ const Main = (props) => {
     setElLength(el.current.children.length);
   }, [elLength]);
 
-  const changeSlide = (direction) => {
+  useEffect(() => {
+    setElWidth(el.current.clientWidth);
+  }, [elWidth]);
+
+  const changeSlideLandscape = (direction) => {
     if (direction === "up") {
       setElHeight(el.current.clientHeight);
       setActiveSlideIndex(activeSlideIndex + 1);
@@ -156,6 +209,22 @@ const Main = (props) => {
       }
     } else if (direction === "down") {
       setElHeight(el.current.clientHeight);
+      setActiveSlideIndex(activeSlideIndex - 1);
+      if (activeSlideIndex <= 0) {
+        setActiveSlideIndex(elLength - 1);
+      }
+    }
+  };
+
+  const changeSlidePortrait = (direction) => {
+    if (direction === "left") {
+      setElWidth(el.current.clientWidth);
+      setActiveSlideIndex(activeSlideIndex + 1);
+      if (activeSlideIndex >= elLength - 1) {
+        setActiveSlideIndex(0);
+      }
+    } else if (direction === "right") {
+      setElWidth(el.current.clientWidth);
       setActiveSlideIndex(activeSlideIndex - 1);
       if (activeSlideIndex <= 0) {
         setActiveSlideIndex(elLength - 1);
@@ -209,6 +278,7 @@ const Main = (props) => {
         <StyledLeftSlide
           ref={el}
           elHeight={elHeight}
+          elWidth={elWidth}
           elLength={elLength}
           activeSlideIndex={activeSlideIndex}
         >
@@ -233,6 +303,8 @@ const Main = (props) => {
         <StyledRightSlide
           ref={el}
           elHeight={elHeight}
+          elWidth={elWidth}
+          elLength={elLength}
           activeSlideIndex={activeSlideIndex}
         >
           <StyledBackgroundImage fluid={img1}></StyledBackgroundImage>
@@ -241,22 +313,39 @@ const Main = (props) => {
           <StyledBackgroundImage fluid={img4}></StyledBackgroundImage>
         </StyledRightSlide>
 
-        <StyledActionsButton>
+        <StyledActionsButtonLandscape>
           <StyledButtonDown
             onClick={() => {
-              changeSlide("down");
+              changeSlideLandscape("down");
             }}
           >
             <i className="fas fa-arrow-down"></i>
           </StyledButtonDown>
           <StyledButtonUp
             onClick={() => {
-              changeSlide("up");
+              changeSlideLandscape("up");
             }}
           >
             <i className="fas fa-arrow-up"></i>
           </StyledButtonUp>
-        </StyledActionsButton>
+        </StyledActionsButtonLandscape>
+        <StyledActionsButtonPortrait>
+          {" "}
+          <StyledButtonLeft
+            onClick={() => {
+              changeSlidePortrait("left");
+            }}
+          >
+            <i className="fas fa-arrow-left"></i>
+          </StyledButtonLeft>
+          <StyledButtonRight
+            onClick={() => {
+              changeSlidePortrait("right");
+            }}
+          >
+            <i className="fas fa-arrow-right"></i>
+          </StyledButtonRight>
+        </StyledActionsButtonPortrait>
       </StyledSliderContainer>
     </MainTemplate>
   );
