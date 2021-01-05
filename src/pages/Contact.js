@@ -10,27 +10,19 @@ const Form = styled.form`
   margin-top: 20%;
 `;
 
-const Contact = ({ data }) => {
+const Contact = () => {
   return (
-    <MainTemplate>
-      <Form
-        name="contact"
-        method="post"
-        data-netlify=" true"
-        data-netlify-honeypot="bot-field"
-      >
-        Name:
-        <input type="text" name="name" placeholder="Twoje Imię"></input>
-        <input type="hidden" name="contact" value="contact" />
-        <button type="submit">Send</button>
-        {/* E-mail
-        <input type="text" name="mail"></input>
-        Comment:
-        <input type="text" name="comment" size="50"></input>
-        <input type="submit" value="Send"></input>
-        <input type="reset" value="Reset"></input> */}
-      </Form>
-    </MainTemplate>
+    <form
+      name="contact-form"
+      method="post"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+    >
+      <input name="name" placeholder="Your Name" type="text" />
+      <input name="email" placeholder="name@name.com" type="email" />
+      <textarea name="message" />
+      <button>Send</button>
+    </form>
   );
 };
 
