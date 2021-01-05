@@ -15,7 +15,6 @@ const Contact = ({ data }) => {
     <MainTemplate>
       <Form
         name="contact"
-        action="mailto:robert.aleks.zuk@gmail.com"
         method="post"
         enctype="text/plain"
         data-netlify=" true"
