@@ -21,7 +21,7 @@ const Contact = ({ data }) => {
       >
         Name:
         <input type="text" name="name" placeholder="Twoje Imię"></input>
-        <button>Send</button>
+        <button type="submit">Send</button>
         {/* E-mail
         <input type="text" name="mail"></input>
         Comment:
