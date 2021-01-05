@@ -16,18 +16,18 @@ const Contact = ({ data }) => {
       <Form
         name="contact"
         method="post"
-        enctype="text/plain"
         data-netlify=" true"
         data-netlify-honeypot="bot-field"
       >
         Name:
         <input type="text" name="name" placeholder="Twoje Imię"></input>
-        E-mail
+        <button>Send</button>
+        {/* E-mail
         <input type="text" name="mail"></input>
         Comment:
         <input type="text" name="comment" size="50"></input>
         <input type="submit" value="Send"></input>
-        <input type="reset" value="Reset"></input>
+        <input type="reset" value="Reset"></input> */}
       </Form>
     </MainTemplate>
   );
