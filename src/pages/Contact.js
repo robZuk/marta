@@ -13,7 +13,7 @@ const Form = styled.form`
 const Contact = ({ data }) => {
   return (
     <MainTemplate>
-      <form
+      <Form
         name="contact"
         method="post"
         data-netlify=" true"
@@ -22,7 +22,13 @@ const Contact = ({ data }) => {
         Name:
         <input type="text" name="name" placeholder="Twoje Imię"></input>
         <button type="submit">Send</button>
-      </form>
+        {/* E-mail
+        <input type="text" name="mail"></input>
+        Comment:
+        <input type="text" name="comment" size="50"></input>
+        <input type="submit" value="Send"></input>
+        <input type="reset" value="Reset"></input> */}
+      </Form>
     </MainTemplate>
   );
 };
