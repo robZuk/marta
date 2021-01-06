@@ -26,7 +26,7 @@ const Contact = () => {
     //     <button type="submit">Send</button>
     //   </p>
     // </form>
-    <Formik name="contact" method="post">
+    <form name="contact" method="post">
       <input type="hidden" name="form-name" value="contact" />
       <p>
         <label>
@@ -46,7 +46,7 @@ const Contact = () => {
       <p>
         <button type="submit">Send</button>
       </p>
-    </Formik>
+    </form>
   );
 };
 
