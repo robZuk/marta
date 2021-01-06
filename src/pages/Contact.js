@@ -56,6 +56,7 @@ const Contact = () => {
               id="message"
               rows="10"
               cols="30"
+              required
             ></textarea>
           </label>
         </p>
