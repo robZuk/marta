@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import BackgroundImage from "gatsby-background-image";
 import styled from "styled-components";
 import MainTemplate from "../templates/MainTemplate";
+import dataSlides from "../data/slides.json";
 
 const StyledSliderContainer = styled.div`
   position: relative;
@@ -10,11 +11,15 @@ const StyledSliderContainer = styled.div`
   width: 100%;
   height: 100%;
   letter-spacing: 3px;
+  @media ${({ theme }) => theme.breakpoints.laptopM} {
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 
 const StyledLeftSlide = styled.div`
   height: 100%;
-  width: 35%;
+  width: 40%;
   position: absolute;
   top: ${({ elLength }) => `-${(elLength - 1) * 100}vh`};
   left: 0;
@@ -28,7 +33,7 @@ const StyledLeftSlide = styled.div`
     display: flex;
     top: 0;
     left: ${({ elLength }) => `-${(elLength - 1) * 100}vw`};
-    height: 35%;
+    height: 40%;
     width: ${({ elLength }) => `${elLength * 100}%`};
   }
   & > div {
@@ -44,24 +49,28 @@ const StyledLeftSlide = styled.div`
       width: 100%;
     }
     :nth-child(1) {
-      background-color: #ffb866;
+      background-color: #b0c4de;
     }
     :nth-child(2) {
-      background-color: #8fa7e0;
+      background-color: #483d8b;
     }
     :nth-child(3) {
-      background-color: lightsalmon;
+      background-color: #cd5c5c;
     }
     :nth-child(4) {
-      background-color: #cec1b9;
+      background-color: #5690b7;
+    }
+    :nth-child(5) {
+      background-color: #d6ae7b;
     }
 
-    & h1 {
+    & h3 {
       text-align: center;
-      font-size: ${({ theme }) => theme.fontSize.s};
-
-      margin: -30px 40px 10px 40px;
+      font-size: ${({ theme }) => theme.fontSize.xs};
+      margin: 0% 4% 2% 4%;
+      text-shadow: 0px 2px 0 rgba(0, 0, 0, 0.5);
       @media ${({ theme }) => theme.breakpoints.tablet} {
+        font-size: ${({ theme }) => theme.fontSize.s};
       }
       @media ${({ theme }) => theme.breakpoints.laptop} {
         font-size: ${({ theme }) => theme.fontSize.l};
@@ -69,11 +78,15 @@ const StyledLeftSlide = styled.div`
     }
     & p {
       text-align: center;
-      margin: 0 30px;
-      font-size: ${({ theme }) => theme.fontSize.xs};
-
-      @media ${({ theme }) => theme.breakpoints.tablet} {
+      margin: 0 10%;
+      font-size: ${({ theme }) => theme.fontSize.xxs};
+      @media ${({ theme }) => theme.breakpoints.laptop} {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+      }
+      @media ${({ theme }) => theme.breakpoints.laptopL} {
         font-size: ${({ theme }) => theme.fontSize.s};
+      }
+      @media ${({ theme }) => theme.orientation.portrait} {
       }
     }
   }
@@ -83,8 +96,8 @@ const StyledRightSlide = styled.div`
   height: 100%;
   position: absolute;
   top: 0;
-  left: 35%;
-  width: 65%;
+  left: 40%;
+  width: 60%;
   transform: ${({ elHeight, activeSlideIndex }) =>
     `translateY(-${elHeight * activeSlideIndex}px)`};
   transition: transform 0.5s ease-in-out;
@@ -92,34 +105,33 @@ const StyledRightSlide = styled.div`
     transform: ${({ elWidth, activeSlideIndex, elLength }) =>
       `translateX(${-(elWidth / elLength) * activeSlideIndex}px)`};
     display: flex;
-    top: 35%;
+    top: 40%;
     left: 0;
-    height: 65%;
+    height: 60%;
     width: ${({ elLength }) => `${elLength * 100}%`};
   }
 `;
 
 const StyledActionsButtonLandscape = styled.div`
   position: absolute;
-  left: 35%;
+  left: 40%;
   top: 50%;
   z-index: 0;
-
   transform: translateX(-50%);
 `;
 
 const StyledActionsButtonPortrait = styled.div`
   position: absolute;
   left: 50%;
-  top: 35%;
+  top: 40%;
   z-index: 0;
   transform: translateX(-50%);
 `;
 
 const StyledButton = styled.button`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.white};
   border: none;
-  color: #aaa;
+  color: ${({ theme }) => theme.grey300};
   cursor: pointer;
   font-size: ${({ theme }) => theme.fontSize.xxs};
   padding: 10px;
@@ -131,7 +143,7 @@ const StyledButton = styled.button`
     font-size: ${({ theme }) => theme.fontSize.s};
   }
   :hover {
-    color: #222;
+    color: ${({ theme }) => theme.black};
   }
   :focus {
     outline: none;
@@ -173,28 +185,31 @@ const StyledButtonRight = styled(StyledButton)`
   }
 `;
 
-const StyledBackgroundImage = styled(BackgroundImage)`
+const StyledBackgroundImg = styled(BackgroundImage)`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   height: 100%;
   width: 100%;
+
+  :nth-child(1) {
+    filter: brightness(100%) contrast(100%) grayscale(0%) sepia(20%);
+  }
+  :nth-child(4) {
+    background-position: center top;
+  }
 `;
 
 const Main = () => {
   const [elHeight, setElHeight] = useState(0);
   const [elWidth, setElWidth] = useState(0);
-  const [elLength, setElLength] = useState(0);
+
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const el = useRef();
 
   useEffect(() => {
     setElHeight(el.current.clientHeight);
   }, [elHeight]);
-
-  useEffect(() => {
-    setElLength(el.current.children.length);
-  }, [elLength]);
 
   useEffect(() => {
     setElWidth(el.current.clientWidth);
@@ -204,14 +219,14 @@ const Main = () => {
     if (direction === "up") {
       setElHeight(el.current.clientHeight);
       setActiveSlideIndex(activeSlideIndex + 1);
-      if (activeSlideIndex >= elLength - 1) {
+      if (activeSlideIndex >= imagesLength - 1) {
         setActiveSlideIndex(0);
       }
     } else if (direction === "down") {
       setElHeight(el.current.clientHeight);
       setActiveSlideIndex(activeSlideIndex - 1);
       if (activeSlideIndex <= 0) {
-        setActiveSlideIndex(elLength - 1);
+        setActiveSlideIndex(imagesLength - 1);
       }
     }
   };
@@ -220,57 +235,37 @@ const Main = () => {
     if (direction === "left") {
       setElWidth(el.current.clientWidth);
       setActiveSlideIndex(activeSlideIndex + 1);
-      if (activeSlideIndex >= elLength - 1) {
+      if (activeSlideIndex >= imagesLength - 1) {
         setActiveSlideIndex(0);
       }
     } else if (direction === "right") {
       setElWidth(el.current.clientWidth);
       setActiveSlideIndex(activeSlideIndex - 1);
       if (activeSlideIndex <= 0) {
-        setActiveSlideIndex(elLength - 1);
+        setActiveSlideIndex(imagesLength - 1);
       }
     }
   };
 
-  const data = useStaticQuery(
-    graphql`
-      query {
-        img1: file(relativePath: { eq: "img2.jpg" }) {
-          childImageSharp {
-            fluid(quality: 90, maxWidth: 1920) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-        img2: file(relativePath: { eq: "img3.jpg" }) {
-          childImageSharp {
-            fluid(quality: 90, maxWidth: 1920) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-        img3: file(relativePath: { eq: "img7.jpg" }) {
-          childImageSharp {
-            fluid(quality: 90, maxWidth: 1920) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-        img4: file(relativePath: { eq: "img6.jpg" }) {
-          childImageSharp {
-            fluid(quality: 90, maxWidth: 1920) {
-              ...GatsbyImageSharpFluid_withWebp
+  const data = useStaticQuery(graphql`
+    query {
+      allFile(filter: { relativeDirectory: { eq: "main" } }) {
+        edges {
+          node {
+            id
+            name
+            childImageSharp {
+              fluid(quality: 100) {
+                ...GatsbyImageSharpFluid
+              }
             }
           }
         }
       }
-    `
-  );
+    }
+  `);
 
-  const img1 = data.img1.childImageSharp.fluid;
-  const img2 = data.img2.childImageSharp.fluid;
-  const img3 = data.img3.childImageSharp.fluid;
-  const img4 = data.img4.childImageSharp.fluid;
+  const imagesLength = data.allFile.edges.length;
 
   return (
     <MainTemplate>
@@ -279,38 +274,34 @@ const Main = () => {
           ref={el}
           elHeight={elHeight}
           elWidth={elWidth}
-          elLength={elLength}
+          elLength={imagesLength}
           activeSlideIndex={activeSlideIndex}
         >
-          <div>
-            <h1>Nature flower</h1>
-            <p>all in pink</p>
-          </div>
-          <div>
-            <h1>Bluuue Sky</h1>
-            <p>with it's mountains</p>
-          </div>
-          <div>
-            <h1>Lonely castle</h1>
-            <p>in the wilderness</p>
-          </div>
-          <div>
-            <h1>Marta Chojnowska</h1>
-            <p>Instruktor fitness</p>
-          </div>
+          {dataSlides.slides.map((item) => {
+            return (
+              <div key={item.id}>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            );
+          })}
         </StyledLeftSlide>
 
         <StyledRightSlide
           ref={el}
           elHeight={elHeight}
           elWidth={elWidth}
-          elLength={elLength}
+          elLength={imagesLength}
           activeSlideIndex={activeSlideIndex}
         >
-          <StyledBackgroundImage fluid={img1}></StyledBackgroundImage>
-          <StyledBackgroundImage fluid={img2}></StyledBackgroundImage>
-          <StyledBackgroundImage fluid={img3}></StyledBackgroundImage>
-          <StyledBackgroundImage fluid={img4}></StyledBackgroundImage>
+          {data.allFile.edges.map((image) => {
+            return (
+              <StyledBackgroundImg
+                fluid={image.node.childImageSharp.fluid}
+                key={image.node.id}
+              ></StyledBackgroundImg>
+            );
+          })}
         </StyledRightSlide>
 
         <StyledActionsButtonLandscape>
