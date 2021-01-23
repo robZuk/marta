@@ -92,7 +92,6 @@ const StyledLeftSlide = styled.div`
       }
       :nth-child(2) {
         font-weight: bold;
-        margin-bottom: 2%;
       }
     }
   }
