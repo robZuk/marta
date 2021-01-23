@@ -59,8 +59,10 @@ const StyledLink = styled(Link)`
   text-shadow: 0px 2px 0 rgba(0, 0, 0, 0.5);
   transform: scale(1);
   transition: 0.5s;
-  :hover {
-    transform: scale(1) translateY(-15px);
+  @media ${({ theme }) => theme.breakpoints.laptopM} {
+    :hover {
+      transform: scale(1) translateY(-15px);
+    }
   }
 `;
 const StyledA = styled.a`

@@ -76,6 +76,8 @@ const StyledLeftSlide = styled.div`
         font-size: ${({ theme }) => theme.fontSize.l};
       }
     }
+    & h5 {
+    }
     & p {
       text-align: center;
       margin: 0 10%;
@@ -87,6 +89,10 @@ const StyledLeftSlide = styled.div`
         font-size: ${({ theme }) => theme.fontSize.s};
       }
       @media ${({ theme }) => theme.orientation.portrait} {
+      }
+      :nth-child(2) {
+        font-weight: bold;
+        margin-bottom: 2%;
       }
     }
   }
@@ -195,9 +201,6 @@ const StyledBackgroundImg = styled(BackgroundImage)`
   :nth-child(1) {
     filter: brightness(100%) contrast(100%) grayscale(0%) sepia(20%);
   }
-  :nth-child(4) {
-    background-position: center top;
-  }
 `;
 
 const Main = () => {
@@ -281,6 +284,7 @@ const Main = () => {
             return (
               <div key={item.id}>
                 <h3>{item.title}</h3>
+                <p>{item.subtitle}</p>
                 <p>{item.text}</p>
               </div>
             );
