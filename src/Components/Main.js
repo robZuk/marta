@@ -139,10 +139,10 @@ const StyledButton = styled.button`
   color: ${({ theme }) => theme.grey300};
   cursor: pointer;
   font-size: ${({ theme }) => theme.fontSize.xxs};
-  padding: 10px;
-  @media ${({ theme }) => theme.breakpoints.laptopM} {
+  padding: 5px;
+  @media ${({ theme }) => theme.breakpoints.tablet} {
     font-size: ${({ theme }) => theme.fontSize.xs};
-    padding: 14px;
+    padding: 10px;
   }
   @media ${({ theme }) => theme.breakpoints.laptopL} {
     font-size: ${({ theme }) => theme.fontSize.s};

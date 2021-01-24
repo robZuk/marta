@@ -19,6 +19,15 @@ const MainTemplate = ({ children }) => {
     <ThemeProvider theme={theme}>
       <Helmet>
         <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content="Marta Chojnowska - instruktor fitness. Prowadzi zajęcia z salsation, pilates, joga na hamakach oraz ćwiczenia wzmacnijące na terenie Rumi, Wejherowa i Redy "
+        />
+        <meta
+          name="keywords"
+          content="fitness, pilates, joga, zajęcia wzmacniające Reda, Rumia , Wejherowo, "
+        />
+        <meta name="author" content="Marta Chojnowska" />
         <title>Marta Chojnowska</title>
         <link
           rel="stylesheet"
