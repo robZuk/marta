@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.footer`
   position: fixed;
   width: 100vw;
   height: 20px;
