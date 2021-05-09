@@ -9,7 +9,7 @@
 - Gatsby
 - styled components
 
-###Install Dependencies 
+### Install Dependencies 
 ```
 npm install
 ```
